@@ -14,7 +14,7 @@ def main():
     magazine_category = input("Enter magazine category: ")
     article_title = input("Enter article title: ")
     article_content = input("Enter article content: ")
-
+   
     # Connect to the database
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -24,6 +24,18 @@ def main():
         The following is just for testing purposes, 
         you can modify it to meet the requirements of your implmentation.
     '''
+    author = Author(id=None, name=author_name)
+    author.create_in_db()  # Assuming `create_in_db` method is implemented in the Author model
+    author_id = author.id  # Get the newly created author's id
+
+    # Create a Magazine instance and insert it into the database
+    magazine = Magazine(id=None, name=magazine_name, category=magazine_category)
+    magazine.create_in_db()  # Assuming `create_in_db` method is implemented in the Magazine model
+    magazine_id = magazine.id  # Get the newly created magazine's id
+
+    # Create an Article instance and insert it into the database
+    article = Article(author=author, magazine=magazine, title=article_title, content=article_content)
+    article.create_in_db()  # Assuming `create_in_db` method is implemented in the Article model
 
     # Create an author
     cursor.execute('INSERT INTO authors (name) VALUES (?)', (author_name,))
